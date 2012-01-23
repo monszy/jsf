@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/templates/default.xhtml">
+	<ui:define name="content">
+
+		<h:form id="productForm">
+            
+			<h:panelGrid columns="2">
+
+				<h:outputText value="#{msg.productNameLabel}" />
+				<h:inputText id="name" value="#{productBean.product.name}" required="#{true}">
+ 					<f:validator validatorId="productNameValidator" />   
+				</h:inputText>
+
+				<h:outputText value="#{msg.productProductTypeLabel}" />
+				<h:selectOneMenu id="productTypeString" value="#{productBean.product.productTypeString}">
+				  <f:selectItem id="Camera" itemLabel="Camera" itemValue="Camera" />
+				  <f:selectItem id="Film" itemLabel="Film" itemValue="Film" />
+				  <f:selectItem id="Computer" itemLabel="Computer" itemValue="Computer" />
+				 
+				</h:selectOneMenu>
+
+
+				
+				<h:outputText value="#{msg.productReleaseYearLabel}" />
+				<h:inputText id="releaseYear" value="#{productBean.product.releaseYear}" required="#{true}" />
+
+				<h:outputText value="#{msg.productPriceLabel}" />
+				<h:inputText id="price" value="#{productBean.product.price}" required="#{true}" />
+				
+<!--  			
+				<h:outputText value="#{msg.productProductTypeLabel}" />
+				<h:inputText id="productType" value="#{productBean.product.productType}" required="#{true}" />
+-->
+
+<!-- 		
+				<h:selectOneMenu id="productType" value="#{productBean.product.productType}">
+				  <f:selectItem id="Action" itemLabel="Action" itemValue="Action" />
+				  <f:selectItem id="Adventure" itemLabel="Adventure" itemValue="Adventure" />
+				  <f:selectItem id="Shooter" itemLabel="Shooter" itemValue="Shooter" />
+				  <f:selectItem id="Fighting" itemLabel="Fighting" itemValue="Fighting" />
+				  <f:selectItem id="Strategy" itemLabel="Strategy" itemValue="Strategy" />
+				  <f:selectItem id="Sport" itemLabel="Sport" itemValue="Sport" />
+				  <f:selectItem id="Racing" itemLabel="Racing" itemValue="Racing" />
+				</h:selectOneMenu>
+-->
+
+			</h:panelGrid>
+			
+			<h:commandButton value="#{msg.productFormOKButton}"
+				action="#{productBean.addProduct}" />
+
+
+			<h:panelGrid>
+				<h:messages id="messages" showDetail="#{true}"
+					showSummary="#{false}" />
+			</h:panelGrid>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

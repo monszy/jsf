@@ -1,6 +1,7 @@
-package com.example.jsfdemo.web;
+package monszy.web;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -16,48 +17,50 @@ import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.example.jsfdemo.domain.Person;
-import com.example.jsfdemo.service.PersonManager;
+import monszy.project.*;
+import monszy.services.*;
+
+
 
 @SessionScoped
-@Named("personBean")
-public class PersonFormBean implements Serializable {
+@Named("productBean")
+public class ProductFormBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Person person = new Person();
+	private Product product = new Product(null, ProductType.Camera , 0, 0);
 
-	private ListDataModel<Person> persons = new ListDataModel<Person>();
+	private ListDataModel<Product> products = new ListDataModel<Product>();
 
 	@Inject
-	private PersonManager pm;
+	private ProductDBManager productDBManager;
 
-	public Person getPerson() {
-		return person;
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setPerson(Person person) {
-		this.person = person;
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	
+	public String addProduct() {
+		product.setProductType(ProductType.valueOf(product.getProductTypeString()));
+		productDBManager.addProduct(product);
+		return "showProducts";
+	}
+		
+	public ListDataModel<Product> getAllProducts() {
+		products.setWrappedData(productDBManager.getAllProducts());
+		return products;
 	}
 
-	public ListDataModel<Person> getAllPersons() {
-		persons.setWrappedData(pm.getAllPersons());
-		return persons;
+
+	public void deleteProduct() {
+		Product productToDelete = products.getRowData();
+		productDBManager.deleteProduct(productDBManager.findProductByName(productToDelete.getName()));
 	}
 
-	// Actions
-	public String addPerson() {
-		pm.addPerson(person);
-		return "showPersons";
-		//return null;
-	}
-
-	public String deletePerson() {
-		Person personToDelete = persons.getRowData();
-		pm.deletePerson(personToDelete);
-		return null;
-	}
-
+	/*
 	// Validators
 
 	// Business logic validation
@@ -102,4 +105,8 @@ public class PersonFormBean implements Serializable {
 			}
 		}
 	}
+*/
+
+
+
 }

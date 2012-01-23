@@ -9,35 +9,34 @@
 	
     <h:form>
     
-     <h:dataTable value="#{personBean.allPersons}" var="item">
-<!-- 	<f:facet name="header">#{msg.personAllLabel}</f:facet> -->
+     <h:dataTable value="#{productBean.allProducts}" var="item">
       
       <h:column>
-        <f:facet name="header">#{msg.personNameLabel}</f:facet>
+        <f:facet name="header">#{msg.productNameLabel}</f:facet>
         #{item.name}
       </h:column>
       
       <h:column>
-        <f:facet name="header">#{msg.personSurnameLabel}</f:facet>
-        #{item.surname}
+        <f:facet name="header">#{msg.productProductTypeLabel}</f:facet>
+        #{item.productType}
       </h:column>
       
       <h:column>
-        <f:facet name="header">"Data urodzenia"</f:facet>
-        <h:outputText value="#{item.dateOfBirthday}">
-  			<f:convertDateTime dateStyle="long"  type="date" />
-		</h:outputText>
+        <f:facet name="header">#{msg.productReleaseYearLabel}</f:facet>
+        #{item.releaseYear}
       </h:column>
-
-<!--    
+      
       <h:column>
-        <f:facet name="header">#{msg.personPinLabel}</f:facet>
-        #{item.pin}
+        <f:facet name="header">#{msg.productPriceLabel}</f:facet>
+        <h:outputText value="#{item.price}">
+  			<f:convertIntToString dateStyle="long"  type="date" />
+		</h:outputText>
+        
       </h:column>
---> 
+      
       <h:column>
         <f:facet name="header">#{msg.action}</f:facet>
-        <h:commandLink value="#{msg.actionDelete}" action="#{personBean.deletePerson}"/>
+        <h:commandLink value="#{msg.actionDelete}" action="#{productBean.deleteProduct}"/>
       </h:column>
 
       
